@@ -1,4 +1,4 @@
-name: task workflow
+name: task-workflow
 on:
   push:
     branches:
@@ -10,11 +10,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: githubref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12-slim"
       - name: Install dependencies
