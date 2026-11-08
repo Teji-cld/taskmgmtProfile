@@ -1,0 +1,25 @@
+name: task workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: githubref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12-slim"
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir -r requirements.txt
+      - name: Run tests
+        run: |
+          pytest
