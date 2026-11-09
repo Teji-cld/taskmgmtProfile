@@ -51,6 +51,9 @@ jobs:
   BUILD_AND_PUBLISH:
     name: BUILD_AND_PUBLISH
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
     environment: Production
     needs: [Build, security-scan]
     if: github.ref == 'refs/heads/main'
@@ -76,7 +79,6 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
-        working-directory: ./backend
         run: |
-          docker build Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build ./backend/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
