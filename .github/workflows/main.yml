@@ -52,7 +52,7 @@ jobs:
     name: BUILD_AND_PUBLISH
     runs-on: ubuntu-latest
     environment: Production
-    needs: [Build, Security_Scan]
+    needs: [Build, security-scan]
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Code checkout
